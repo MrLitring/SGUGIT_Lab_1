@@ -31,59 +31,81 @@ namespace SGUGIT_Lab_1
             {
                 message_error("Введите число", "Ошибка");
             }
-
-            if (comboBox1.SelectedIndex == -1)
+            else if (comboBox1.SelectedIndex == -1)
             {
-                message_error("Выберите еденицу конвертирования", "Ошибка");
+                message_error("Выберите единицу измерения", "Ошибка");
+            }
+            else
+            {
+                Converted();
             }
 
-            foreach (Component item in groupBox1.Container.Components)
-            {
-                if (item is RadioButton)
-                {
-                    
-                }
-            }
         }
 
         private void Converted()
         {
             double ch = Convert.ToDouble(textBox1.Text);
+            string answer = string.Empty;
             int key = comboBox1.SelectedIndex;
 
-            switch(key)
-            {
-                case 0:
-                    {
+            /*
+             * м в м = 1
+             * м в фут 1 = 3,28
+             * м в км 1 = 0,001
+             * м в дюймы 1 = 39,37
+            */
 
-                        break;
-                    }
+            const double ft = 3.28; // Футы 
+            const double km = 0.001; // Километры
+            const double dm = 39.37; // Дюймы
+            
+            // 
+            // Проверка индекса в ComboBox
+            //
+            switch (key)
+            {
                 case 1:
                     {
-
+                        ch = ch / km;
                         break;
                     }
                 case 2:
                     {
-
+                        ch = ch / dm;
                         break;
                     }
                 case 3:
                     {
-
+                        ch = ch / ft;
                         break;
-                    }
-                default:
-                    {
-
-                        break;
-                    }
+                    } 
             }
 
-            if(radioButton1.Checked)
+
+            //
+            // Проверка активных RadioButton
+            //
+            if (radioButton1.Checked)
             {
-                label1.Text = Convert.ToDouble(textBox1.Text) + "дюйм(ов)";
+                answer = (ch).ToString() + " метр(ов)";
             }
+
+            if (radioButton2.Checked)
+            {
+                answer = (ch * ft).ToString() + " фут(ов)";
+            }
+
+            if (radioButton3.Checked)
+            {
+                answer = (ch * km).ToString() + " километр(ов)";
+            }
+
+            if (radioButton4.Checked)
+            {
+                answer = (ch * dm).ToString() + " дюйм(ов)";
+            }
+
+            label1.Text = answer;
 
         }
 
