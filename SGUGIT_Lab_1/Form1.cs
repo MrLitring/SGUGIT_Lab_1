@@ -12,16 +12,54 @@ namespace SGUGIT_Lab_1
 {
     public partial class Form1 : Form
     {
+        private bool isPointInput = false;
+
         public Form1()
         {
             InitializeComponent();
+            radioButton1.Checked = true;
         }
 
         private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != ',' && e.KeyChar != (char)Keys.Back)
+            if (!Char.IsDigit(e.KeyChar) && e.KeyChar != '.' && e.KeyChar != (char)Keys.Back)
             {
                 e.Handled = true;
+            }
+
+            if (e.KeyChar == '.')
+            {
+
+                pointCheck(textBox1.Text);
+                if (isPointInput == false)
+                {
+                    isPointInput = true;
+                }
+                else
+                {
+                    e.Handled = true;
+                }
+            }
+        }
+
+        private void pointCheck(string value)
+        {
+            foreach (char elem in value)
+            {
+                if (elem == '.')
+                {
+                    if (isPointInput == false)
+                    {
+                        isPointInput = true;
+                        break;
+                    }
+                    break;
+                }
+                else
+                {
+                    isPointInput = false;
+                }
+
             }
         }
 
@@ -56,9 +94,9 @@ namespace SGUGIT_Lab_1
             */
 
             const double ft = 3.28; // Футы 
-            const double km = 0.001; // Километры
+            //const double km = 0.001; // Километры
             const double dm = 39.37; // Дюймы
-            
+
             // 
             // Проверка индекса в ComboBox
             //
@@ -66,7 +104,7 @@ namespace SGUGIT_Lab_1
             {
                 case 1:
                     {
-                        ch = ch / km;
+                        ch = ch * 1000;
                         break;
                     }
                 case 2:
@@ -78,7 +116,7 @@ namespace SGUGIT_Lab_1
                     {
                         ch = ch / ft;
                         break;
-                    } 
+                    }
             }
 
 
@@ -97,7 +135,7 @@ namespace SGUGIT_Lab_1
 
             if (radioButton3.Checked)
             {
-                answer = (ch * km).ToString() + " километр(ов)";
+                answer = (ch / 1000).ToString() + " километр(ов)";
             }
 
             if (radioButton4.Checked)
